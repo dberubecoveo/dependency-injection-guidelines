@@ -1,4 +1,7 @@
-﻿namespace DependencyInjection;
+﻿using DependencyInjection.Configuration;
+using DependencyInjection.Services;
+
+namespace DependencyInjection;
 
 public class MainProcess
 {
@@ -6,9 +9,13 @@ public class MainProcess
     {
         Console.WriteLine("Starting application");
 
-        var container = new DependencyContainer();
+        var configuration = new Config { Prefix = "SomePrefix", Suffix = "SomeSuffix" };
 
-        var primaryJob = new PrimaryJob(container);
+        // The temporary dependency container is created at the root and passed through the hierarchy.
+        // Ultimately, it would be removed since those dependencies are held in the real DI container.
+        var container = new DependencyContainer(configuration);
+
+        var primaryJob = new PrimaryJobService(container);
 
         primaryJob.StartJob();
     }

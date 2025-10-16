@@ -1,6 +1,6 @@
 ﻿namespace DependencyInjection;
 
-public interface IPrimaryJob
+public interface IPrimaryJobService
 {
     void StartJob();
 }
